@@ -26,7 +26,7 @@
         class="stripe-card"
         id="card"
         :class="{ complete }"
-        stripe="pk_test_8ssZgwB2PiH0ajJksD2gVbsG00u7Y3IDPv"
+        :stripe="stripePublicKey"
         :options="stripeOptions"
         @change="complete = $event.complete"
       />
@@ -65,7 +65,10 @@ import { mapState } from "vuex";
 export default {
   components: { Card },
   computed: {
-    ...mapState(["cartUIStatus"])
+    ...mapState(["cartUIStatus"]),
+    stripePublicKey () {
+      return process.env.STRIPE_PUBLIC_KEY;
+    }
   },
   mounted() {
     // create a PaymentIntent on Stripe with order information
